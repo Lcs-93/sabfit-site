@@ -1,0 +1,21 @@
+<svg width="960" height="720" viewBox="0 0 960 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="720" fill="#F6F4EE"/>
+  <rect x="28" y="28" width="904" height="664" rx="34" fill="#FFFDF8" stroke="#16382B" stroke-opacity="0.12" stroke-width="2"/>
+  <rect x="70" y="98" width="352" height="520" rx="28" fill="#16382B"/>
+  <rect x="538" y="98" width="352" height="520" rx="28" fill="#274B3A"/>
+  <path d="M246 192C290.183 192 326 227.817 326 272V429H166V272C166 227.817 201.817 192 246 192Z" fill="#F6F4EE" fill-opacity="0.92"/>
+  <circle cx="246" cy="168" r="52" fill="#F6F4EE" fill-opacity="0.92"/>
+  <path d="M714 180C760.944 180 799 218.056 799 265V429H629V265C629 218.056 667.056 180 714 180Z" fill="#F6F4EE" fill-opacity="0.92"/>
+  <circle cx="714" cy="154" r="56" fill="#F6F4EE" fill-opacity="0.92"/>
+  <rect x="166" y="464" width="160" height="18" rx="9" fill="#C8A873"/>
+  <rect x="629" y="464" width="170" height="18" rx="9" fill="#C8A873"/>
+  <text x="246" y="546" text-anchor="middle" fill="#FFFDF8" font-family="Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="2.8">
+    AVANT
+  </text>
+  <text x="714" y="546" text-anchor="middle" fill="#FFFDF8" font-family="Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="2.8">
+    APRES
+  </text>
+  <text x="480" y="664" text-anchor="middle" fill="#16382B" font-family="Arial, sans-serif" font-size="20" font-weight="600" letter-spacing="1.5">
+    EMPLACEMENT PREMIUM POUR UNE FUTURE TRANSFORMATION CLIENT
+  </text>
+</svg>

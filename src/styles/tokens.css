@@ -1,0 +1,13 @@
+:root {
+  --color-ivory: #f6f4ee;
+  --color-surface: #fffdf8;
+  --color-deep-green: #16382b;
+  --color-deep-green-strong: #10281f;
+  --color-green-soft: #274b3a;
+  --color-sand: #c8a873;
+  --color-ink: #161616;
+  --color-muted: #5f665f;
+  --color-line: rgba(22, 56, 43, 0.12);
+  --shadow-soft: 0 18px 45px rgba(22, 56, 43, 0.08);
+  --shadow-strong: 0 24px 70px rgba(16, 40, 31, 0.16);
+}

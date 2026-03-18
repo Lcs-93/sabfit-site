@@ -1,0 +1,33 @@
+<svg width="780" height="920" viewBox="0 0 780 920" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="780" height="920" fill="#16382B"/>
+  <rect x="36" y="36" width="708" height="848" rx="36" fill="url(#paint0_linear)"/>
+  <circle cx="567" cy="196" r="132" fill="url(#paint1_radial)" fill-opacity="0.7"/>
+  <circle cx="240" cy="702" r="176" fill="url(#paint2_radial)" fill-opacity="0.34"/>
+  <path d="M390 218C450.751 218 500 267.249 500 328C500 379.972 463.982 423.535 415.5 435.076V487H501C569.483 487 625 542.517 625 611V794H155V611C155 542.517 210.517 487 279 487H364.5V435.076C316.018 423.535 280 379.972 280 328C280 267.249 329.249 218 390 218Z" fill="#F6F4EE" fill-opacity="0.93"/>
+  <path d="M249 794C265.942 728.832 324.868 680.757 390 680.757C455.132 680.757 514.058 728.832 531 794H249Z" fill="#C8A873" fill-opacity="0.82"/>
+  <path d="M297 481H483V540C483 591.362 441.362 633 390 633C338.638 633 297 591.362 297 540V481Z" fill="#274B3A"/>
+  <rect x="68" y="70" width="210" height="46" rx="23" fill="#FFFDF8" fill-opacity="0.92"/>
+  <text x="173" y="99" text-anchor="middle" fill="#16382B" font-family="Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="2.2">
+    PHOTO D'EXEMPLE
+  </text>
+  <text x="390" y="830" text-anchor="middle" fill="#FFFDF8" font-family="Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="5">
+    SABFIT
+  </text>
+  <text x="390" y="866" text-anchor="middle" fill="#FFFDF8" fill-opacity="0.82" font-family="Arial, sans-serif" font-size="18" font-weight="500" letter-spacing="1.5">
+    SPORTIF NATUREL EN ATTENDANT LE PORTRAIT REEL
+  </text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="390" y1="36" x2="390" y2="884" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#274B3A"/>
+      <stop offset="1" stop-color="#10281F"/>
+    </linearGradient>
+    <radialGradient id="paint1_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(567 196) rotate(90) scale(132)">
+      <stop stop-color="#C8A873"/>
+      <stop offset="1" stop-color="#C8A873" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="paint2_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(240 702) rotate(90) scale(176)">
+      <stop stop-color="#F6F4EE"/>
+      <stop offset="1" stop-color="#F6F4EE" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>
