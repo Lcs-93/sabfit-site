@@ -20,18 +20,46 @@ export const navItems = [
   { label: "Contact", href: "/#contact" },
 ];
 
-export const heroChecklist = [
-  "Programme adapte a votre niveau et a vos objectifs",
-  "Plan alimentaire clair, concret et applicable",
-  "Accompagnement humain et structure",
-  "Echange direct via WhatsApp et par mail",
-];
+function createHeroImagePool(category: string, count: number) {
+  return Array.from(
+    { length: count },
+    (_, index) =>
+      `/images/hero/${category}/${category}-${String(index + 1).padStart(2, "0")}.png`,
+  );
+}
 
-export const trustItems = [
-  "Prise de masse",
-  "Perte de gras",
-  "Nutrition",
-  "Suivi global",
+export const heroHighlights = [
+  {
+    id: "fat-loss",
+    title: "Perte de gras",
+    imageAlt: "Illustration Sabfit pour la perte de gras.",
+    images: createHeroImagePool("fat-loss", 6),
+  },
+  {
+    id: "nutrition",
+    title: "Nutrition",
+    imageAlt: "Illustration Sabfit pour la nutrition.",
+    images: createHeroImagePool("nutrition", 6),
+  },
+  {
+    id: "muscle-gain",
+    title: "Prise de muscle",
+    imageAlt: "Illustration Sabfit pour la prise de muscle.",
+    images: createHeroImagePool("muscle-gain", 11),
+  },
+  {
+    id: "online-coaching",
+    title: "Suivi en ligne",
+    imageAlt: "Illustration Sabfit pour le suivi en ligne.",
+    images: createHeroImagePool("online-coaching", 9),
+  },
+] as const;
+
+export const heroRotatingPhrases = [
+  "avec un accompagnement humain.",
+  "avec une methode claire.",
+  "avec un suivi structure.",
+  "avec une progression durable.",
 ];
 
 export const methodSteps = [

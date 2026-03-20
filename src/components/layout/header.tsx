@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   CircleHelp,
-  Dumbbell,
-  Headset,
   LayoutGrid,
   Map,
   Menu,
@@ -36,19 +35,21 @@ const navIcons: Record<string, LucideIcon> = {
   Contact: MessageCircle,
 };
 
-const brandPills: Array<{ desktopLabel: string; mobileLabel: string; icon: LucideIcon }> = [
-  { desktopLabel: "Coaching", mobileLabel: "Coaching", icon: Headset },
-  { desktopLabel: "Muscu & nutrition", mobileLabel: "Musculation & nutrition", icon: Dumbbell },
-];
-
 interface HeaderLinkProps {
   label: string;
   href: string;
   mobile?: boolean;
+  transparent?: boolean;
   onNavigate?: () => void;
 }
 
-function HeaderLink({ label, href, mobile = false, onNavigate }: HeaderLinkProps) {
+function HeaderLink({
+  label,
+  href,
+  mobile = false,
+  transparent = false,
+  onNavigate,
+}: HeaderLinkProps) {
   const Icon = navIcons[label] ?? LayoutGrid;
 
   return (
@@ -59,11 +60,20 @@ function HeaderLink({ label, href, mobile = false, onNavigate }: HeaderLinkProps
         "group relative transition-all duration-250",
         mobile
           ? "flex items-center justify-between rounded-[1.2rem] border border-[rgba(22,56,43,0.08)] bg-white/78 px-4 py-3"
-          : "flex h-11 items-center gap-2 rounded-full px-3 text-[var(--color-muted)] hover:text-[var(--color-deep-green)]",
+          : transparent
+            ? "flex h-11 items-center gap-2 rounded-full px-2.5 text-white hover:text-white"
+            : "flex h-11 items-center gap-2 rounded-full px-3 text-[var(--color-muted)] hover:text-[var(--color-deep-green)]",
       )}
     >
       {!mobile ? (
-        <span className="absolute inset-0 rounded-full bg-white/82 opacity-0 shadow-[0_10px_26px_rgba(16,40,31,0.08)] transition-opacity duration-250 group-hover:opacity-100" />
+        <span
+          className={cn(
+            "absolute inset-0 rounded-full transition-opacity duration-250",
+            transparent
+              ? "bg-white/14 opacity-0 backdrop-blur-md group-hover:opacity-100"
+              : "bg-white/82 opacity-0 shadow-[0_10px_26px_rgba(16,40,31,0.08)] group-hover:opacity-100",
+          )}
+        />
       ) : null}
 
       <span
@@ -71,7 +81,9 @@ function HeaderLink({ label, href, mobile = false, onNavigate }: HeaderLinkProps
           "relative z-10 flex items-center justify-center rounded-full transition-all duration-250",
           mobile
             ? "h-10 w-10 bg-[rgba(22,56,43,0.08)] text-[var(--color-deep-green)]"
-            : "h-8 w-8 bg-[rgba(22,56,43,0.06)] text-[var(--color-green-soft)] group-hover:-translate-y-0.5 group-hover:bg-[var(--color-deep-green)] group-hover:text-white",
+            : transparent
+              ? "h-8 w-8 bg-white/18 text-white shadow-[0_10px_24px_rgba(0,0,0,0.16)] group-hover:-translate-y-0.5 group-hover:bg-white/28 group-hover:text-white"
+              : "h-8 w-8 bg-[rgba(22,56,43,0.06)] text-[var(--color-green-soft)] group-hover:-translate-y-0.5 group-hover:bg-[var(--color-deep-green)] group-hover:text-white",
         )}
       >
         <Icon
@@ -86,7 +98,11 @@ function HeaderLink({ label, href, mobile = false, onNavigate }: HeaderLinkProps
       <span
         className={cn(
           "relative z-10 font-medium transition-colors duration-250",
-          mobile ? "text-[15px] text-[var(--color-deep-green)]" : "text-[14px]",
+          mobile
+            ? "text-[15px] text-[var(--color-deep-green)]"
+            : transparent
+              ? "text-[14px] text-white [text-shadow:0_1px_10px_rgba(0,0,0,0.36)]"
+              : "text-[14px]",
         )}
       >
         {label}
@@ -95,99 +111,125 @@ function HeaderLink({ label, href, mobile = false, onNavigate }: HeaderLinkProps
       {mobile ? (
         <ArrowRight aria-hidden="true" className="relative z-10 h-[1rem] w-[1rem] text-[var(--color-muted)]" />
       ) : (
-        <span className="absolute inset-x-4 bottom-1 h-px origin-left scale-x-0 bg-[linear-gradient(90deg,var(--color-sand),var(--color-deep-green))] transition-transform duration-250 group-hover:scale-x-100" />
+        <span
+          className={cn(
+            "absolute inset-x-4 bottom-1 h-px origin-left scale-x-0 transition-transform duration-250 group-hover:scale-x-100",
+            transparent
+              ? "bg-[linear-gradient(90deg,rgba(200,168,115,0.88),rgba(255,255,255,0.95))]"
+              : "bg-[linear-gradient(90deg,var(--color-sand),var(--color-deep-green))]",
+          )}
+        />
       )}
     </Link>
   );
 }
 
-function BrandMetaItem({ icon: Icon, label }: { icon: LucideIcon; label: string }) {
-  return (
-    <span className="inline-flex items-center gap-1.5 whitespace-nowrap text-[12.5px] font-medium text-[var(--color-muted)]">
-      <span className="flex h-6.5 w-6.5 shrink-0 items-center justify-center rounded-full bg-[rgba(22,56,43,0.08)] text-[var(--color-green-soft)]">
-        <Icon aria-hidden="true" className="h-[0.9rem] w-[0.9rem] stroke-[2.05]" />
-      </span>
-      <span className="leading-none">{label}</span>
-    </span>
-  );
-}
-
-function BrandMetaMobile({ icon: Icon, label }: { icon: LucideIcon; label: string }) {
-  return (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-[rgba(22,56,43,0.05)] px-2.5 py-1.5 text-[12px] font-medium text-[var(--color-muted)]">
-      <span className="flex h-5 w-5 shrink-0 items-center justify-center text-[var(--color-green-soft)]">
-        <Icon aria-hidden="true" className="h-[0.82rem] w-[0.82rem] stroke-[2.05]" />
-      </span>
-      <span className="leading-none">{label}</span>
-    </span>
-  );
-}
 
 export function Header() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const { body, documentElement } = document;
+    const previousBodyOverflow = body.style.overflow;
+    const previousHtmlOverflow = documentElement.style.overflow;
+
+    if (menuOpen) {
+      body.style.overflow = "hidden";
+      documentElement.style.overflow = "hidden";
+    }
+
+    return () => {
+      body.style.overflow = previousBodyOverflow;
+      documentElement.style.overflow = previousHtmlOverflow;
+    };
+  }, [menuOpen]);
+
+  const overlayOnHero = pathname === "/";
+  const transparentDesktop = overlayOnHero && !isScrolled && !menuOpen;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[rgba(22,56,43,0.08)] bg-[rgba(246,244,238,0.72)] backdrop-blur-xl">
+    <header
+      className={cn(
+        "top-0 z-50 transition-all duration-300",
+        overlayOnHero ? "fixed inset-x-0" : "sticky",
+        transparentDesktop
+          ? "border-b border-transparent bg-transparent backdrop-blur-0"
+          : "border-b border-[rgba(22,56,43,0.08)] bg-[rgba(246,244,238,0.46)] shadow-[0_10px_30px_rgba(16,40,31,0.06)] backdrop-blur-2xl",
+      )}
+    >
       <Container className="py-3 sm:py-4">
         <div className="relative">
-          <div className="flex items-center justify-between gap-3 rounded-[2rem] border border-[rgba(22,56,43,0.08)] bg-[rgba(255,253,248,0.78)] px-3 py-2.5 shadow-[0_18px_50px_rgba(16,40,31,0.08)] sm:px-4 xl:grid xl:grid-cols-[minmax(22rem,23rem)_minmax(0,1fr)_auto] xl:items-center xl:gap-6 2xl:grid-cols-[minmax(23.5rem,25rem)_minmax(0,1fr)_auto]">
-            <Link href="/#top" className="group flex min-w-0 items-center gap-3 rounded-[1.6rem] px-1 py-1.5">
-              <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[linear-gradient(135deg,var(--color-deep-green),var(--color-green-soft))] text-sm font-semibold tracking-[0.24em] text-white shadow-[0_12px_30px_rgba(16,40,31,0.16)] sm:h-[3.3rem] sm:w-[3.3rem]">
-                <span className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.22),transparent_42%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                <span className="relative z-10">SF</span>
-              </div>
-
-              <div className="min-w-0 xl:max-w-[22rem] 2xl:max-w-[24rem]">
-                <div className="flex flex-wrap items-center gap-2">
-                  <p className="font-display text-[1.12rem] font-semibold tracking-tight text-[var(--color-deep-green)] sm:text-[1.22rem]">
-                    {siteConfig.name}
-                  </p>
-                  <span className="hidden rounded-full bg-[rgba(22,56,43,0.08)] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--color-green-soft)] sm:inline-flex">
-                    Premium
-                  </span>
-                </div>
-
-                <div className="mt-1.5 flex flex-wrap items-center gap-1.5 sm:gap-2 xl:hidden">
-                  {brandPills.map((item) => (
-                    <BrandMetaMobile key={item.mobileLabel} icon={item.icon} label={item.mobileLabel} />
-                  ))}
-                </div>
-
-                <div className="mt-2 hidden items-center gap-2.5 xl:flex">
-                  {brandPills.map((item) => (
-                    <BrandMetaItem key={item.desktopLabel} icon={item.icon} label={item.desktopLabel} />
-                  ))}
-                </div>
-              </div>
+          <div
+            className="flex items-center justify-between gap-3 px-3 py-2.5 transition-all duration-300 sm:px-4 xl:grid xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:items-center xl:gap-5 2xl:gap-6"
+          >
+            <Link href="/#top" className="group flex min-w-0 items-center py-1.5 xl:justify-self-start">
+              <p
+                className={cn(
+                  "font-display text-[1.3rem] font-semibold tracking-tight sm:text-[1.5rem]",
+                  transparentDesktop
+                    ? "text-white [text-shadow:0_1px_14px_rgba(0,0,0,0.4)]"
+                    : "text-[var(--color-deep-green)]",
+                )}
+              >
+                {siteConfig.name}
+              </p>
             </Link>
 
-            <div className="hidden xl:flex items-center justify-center">
-              <nav className="flex items-center gap-0.5 rounded-full border border-[rgba(22,56,43,0.08)] bg-[rgba(255,255,255,0.58)] px-1 py-1 shadow-[0_12px_28px_rgba(16,40,31,0.05)]">
+            <div className="hidden xl:flex items-center justify-center xl:min-w-0">
+              <nav
+                className={cn(
+                  "flex items-center gap-0.5 rounded-full px-1 py-1 transition-all duration-300",
+                  transparentDesktop
+                    ? "border border-white/16 bg-[rgba(10,16,13,0.24)] shadow-[0_16px_38px_rgba(0,0,0,0.28)] backdrop-blur-xl"
+                    : "border border-[rgba(22,56,43,0.08)] bg-[rgba(255,255,255,0.58)] shadow-[0_12px_28px_rgba(16,40,31,0.05)]",
+                )}
+              >
                 {navItems.map((item) => (
-                  <HeaderLink key={item.href} label={item.label} href={item.href} />
+                  <HeaderLink
+                    key={item.href}
+                    label={item.label}
+                    href={item.href}
+                    transparent={transparentDesktop}
+                  />
                 ))}
               </nav>
             </div>
 
-            <div className="hidden xl:flex items-center justify-end pl-3 2xl:pl-4">
+            <div className="hidden xl:flex items-center justify-end xl:justify-self-end">
               <ButtonLink
                 href={buildWhatsAppLink(whatsappBaseMessage)}
-                className="group min-h-[3.55rem] min-w-[14.6rem] gap-3 rounded-full bg-[linear-gradient(135deg,var(--color-deep-green),var(--color-green-soft))] px-3.5 py-2.5 text-white shadow-[0_18px_35px_rgba(16,40,31,0.16)] hover:shadow-[0_24px_46px_rgba(16,40,31,0.2)]"
+                className={cn(
+                  "group min-h-[3.55rem] min-w-[14.6rem] gap-3 rounded-full px-3.5 py-2.5 transition-all duration-300",
+                  transparentDesktop
+                    ? "border border-white/18 bg-[rgba(255,255,255,0.18)] text-white shadow-[0_18px_35px_rgba(0,0,0,0.22)] backdrop-blur-xl hover:bg-[rgba(255,255,255,0.24)] hover:shadow-[0_24px_46px_rgba(0,0,0,0.28)]"
+                    : "bg-[linear-gradient(135deg,var(--color-deep-green),var(--color-green-soft))] text-white shadow-[0_18px_35px_rgba(16,40,31,0.16)] hover:shadow-[0_24px_46px_rgba(16,40,31,0.2)]",
+                )}
               >
                 <span className="flex items-center justify-center text-white transition-transform duration-250 group-hover:scale-105">
                   <WhatsAppIcon />
                 </span>
 
                 <span className="flex flex-col items-start leading-none">
-                  <span className="text-[10px] uppercase tracking-[0.18em] text-white/68">
+                  <span className="text-[10px] uppercase tracking-[0.18em] text-white/72">
                     WhatsApp
                   </span>
-                  <span className="whitespace-nowrap text-[0.9rem] font-semibold text-white">Parler maintenant</span>
+                  <span className="whitespace-nowrap text-[0.9rem] font-semibold text-white [text-shadow:0_1px_10px_rgba(0,0,0,0.34)]">
+                    Parler maintenant
+                  </span>
                 </span>
 
                 <ArrowRight
                   aria-hidden="true"
-                  className="ml-auto h-[1.02rem] w-[1.02rem] text-white/78 transition-transform duration-250 group-hover:translate-x-0.5"
+                  className="ml-auto h-[1.02rem] w-[1.02rem] text-white/82 transition-transform duration-250 group-hover:translate-x-0.5"
                 />
               </ButtonLink>
             </div>
@@ -195,7 +237,12 @@ export function Header() {
             <button
               type="button"
               onClick={() => setMenuOpen((open) => !open)}
-              className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[rgba(22,56,43,0.08)] bg-white/76 text-[var(--color-deep-green)] shadow-[0_10px_24px_rgba(16,40,31,0.08)] transition-colors hover:bg-white xl:hidden"
+              className={cn(
+                "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors xl:hidden",
+                transparentDesktop
+                  ? "border border-white/16 bg-[rgba(255,255,255,0.14)] text-white shadow-[0_12px_28px_rgba(0,0,0,0.18)] backdrop-blur-md hover:bg-[rgba(255,255,255,0.22)]"
+                  : "border border-[rgba(22,56,43,0.08)] bg-[rgba(255,255,255,0.62)] text-[var(--color-deep-green)] shadow-[0_10px_24px_rgba(16,40,31,0.08)] backdrop-blur-xl hover:bg-[rgba(255,255,255,0.78)]",
+              )}
               aria-expanded={menuOpen}
               aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
             >
@@ -205,8 +252,10 @@ export function Header() {
 
           <div
             className={cn(
-              "overflow-hidden transition-all duration-300 xl:hidden",
-              menuOpen ? "mt-3 max-h-[calc(100vh-6.5rem)] opacity-100" : "max-h-0 opacity-0",
+              "transition-all duration-300 xl:hidden",
+              menuOpen
+                ? "mt-3 max-h-[calc(100vh-6.5rem)] overflow-y-auto overscroll-contain opacity-100"
+                : "max-h-0 overflow-hidden opacity-0",
             )}
           >
             <div className="surface-card rounded-[1.9rem] p-3">
@@ -223,17 +272,12 @@ export function Header() {
               </div>
 
               <div className="mt-3 rounded-[1.45rem] border border-[rgba(22,56,43,0.08)] bg-[linear-gradient(135deg,rgba(22,56,43,0.98),rgba(39,75,58,0.96))] p-3.5 text-white shadow-[0_18px_45px_rgba(16,40,31,0.16)]">
-                <div className="flex items-start gap-3">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white">
-                    <WhatsAppIcon />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="text-xs uppercase tracking-[0.16em] text-white/70">Contact direct</p>
-                    <p className="mt-1 text-base font-semibold text-white">Contactez-moi sur WhatsApp</p>
-                    <p className="mt-1 text-sm leading-relaxed text-white/72">
-                      Reponse rapide pour choisir la formule la plus adaptee a votre objectif.
-                    </p>
-                  </div>
+                <div className="min-w-0">
+                  <p className="text-xs uppercase tracking-[0.16em] text-white/70">WhatsApp direct</p>
+                  <p className="mt-1 text-base font-semibold text-white">Parlez-nous maintenant</p>
+                  <p className="mt-1 text-sm leading-relaxed text-white/72">
+                    Reponse rapide pour choisir votre formule.
+                  </p>
                 </div>
 
                 <ButtonLink
@@ -245,10 +289,7 @@ export function Header() {
                       <WhatsAppIcon />
                     </span>
                     <span className="flex flex-col items-start leading-none">
-                      <span className="text-[11px] uppercase tracking-[0.15em] text-[var(--color-muted)]">
-                        WhatsApp
-                      </span>
-                      <span className="mt-1 text-[15px] font-semibold text-[var(--color-deep-green)]">
+                      <span className="text-[15px] font-semibold text-[var(--color-deep-green)]">
                         Envoyer un message
                       </span>
                     </span>
