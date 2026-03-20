@@ -12,12 +12,15 @@ export const siteConfig = {
 export const whatsappBaseMessage =
   "Bonjour Sabfit, je souhaite en savoir plus sur votre accompagnement.";
 
-export const navItems = [
-  { label: "Offres", href: "/#offres" },
-  { label: "Methode", href: "/#methode" },
-  { label: "Avis", href: "/#avis" },
-  { label: "FAQ", href: "/#faq" },
-  { label: "Contact", href: "/#contact" },
+export const homeSectionIds = ["top", "offres", "methode", "avis", "faq", "contact"] as const;
+export type HomeSectionId = (typeof homeSectionIds)[number];
+
+export const navItems: Array<{ label: string; sectionId: HomeSectionId }> = [
+  { label: "Offres", sectionId: "offres" },
+  { label: "Methode", sectionId: "methode" },
+  { label: "Avis", sectionId: "avis" },
+  { label: "FAQ", sectionId: "faq" },
+  { label: "Contact", sectionId: "contact" },
 ];
 
 function createHeroImagePool(category: string, count: number) {

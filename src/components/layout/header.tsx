@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   ArrowRight,
@@ -16,7 +15,14 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { ButtonLink } from "@/components/ui/button";
-import { buildWhatsAppLink, navItems, siteConfig, whatsappBaseMessage } from "@/lib/constants";
+import { scrollToHomeSection, storePendingHomeSection } from "@/lib/home-scroll";
+import {
+  buildWhatsAppLink,
+  navItems,
+  siteConfig,
+  type HomeSectionId,
+  whatsappBaseMessage,
+} from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 function WhatsAppIcon() {
@@ -37,15 +43,13 @@ const navIcons: Record<string, LucideIcon> = {
 
 interface HeaderLinkProps {
   label: string;
-  href: string;
   mobile?: boolean;
   transparent?: boolean;
-  onNavigate?: () => void;
+  onNavigate?: () => void | Promise<void>;
 }
 
 function HeaderLink({
   label,
-  href,
   mobile = false,
   transparent = false,
   onNavigate,
@@ -53,8 +57,8 @@ function HeaderLink({
   const Icon = navIcons[label] ?? LayoutGrid;
 
   return (
-    <Link
-      href={href}
+    <button
+      type="button"
       onClick={onNavigate}
       className={cn(
         "group relative transition-all duration-250",
@@ -120,12 +124,13 @@ function HeaderLink({
           )}
         />
       )}
-    </Link>
+    </button>
   );
 }
 
 
 export function Header() {
+  const router = useRouter();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -156,6 +161,27 @@ export function Header() {
   const overlayOnHero = pathname === "/";
   const transparentDesktop = overlayOnHero && !isScrolled && !menuOpen;
 
+  function handleHomeNavigation(sectionId: HomeSectionId) {
+    if (pathname === "/") {
+      const runScroll = () => scrollToHomeSection(sectionId);
+
+      if (menuOpen) {
+        setMenuOpen(false);
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(runScroll);
+        });
+        return;
+      }
+
+      runScroll();
+      return;
+    }
+
+    storePendingHomeSection(sectionId);
+    setMenuOpen(false);
+    router.push("/");
+  }
+
   return (
     <header
       className={cn(
@@ -171,7 +197,11 @@ export function Header() {
           <div
             className="flex items-center justify-between gap-3 px-3 py-2.5 transition-all duration-300 sm:px-4 xl:grid xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:items-center xl:gap-5 2xl:gap-6"
           >
-            <Link href="/#top" className="group flex min-w-0 items-center py-1.5 xl:justify-self-start">
+            <button
+              type="button"
+              onClick={() => handleHomeNavigation("top")}
+              className="group flex min-w-0 items-center py-1.5 xl:justify-self-start"
+            >
               <p
                 className={cn(
                   "font-display text-[1.3rem] font-semibold tracking-tight sm:text-[1.5rem]",
@@ -182,7 +212,7 @@ export function Header() {
               >
                 {siteConfig.name}
               </p>
-            </Link>
+            </button>
 
             <div className="hidden xl:flex items-center justify-center xl:min-w-0">
               <nav
@@ -195,9 +225,9 @@ export function Header() {
               >
                 {navItems.map((item) => (
                   <HeaderLink
-                    key={item.href}
+                    key={item.sectionId}
                     label={item.label}
-                    href={item.href}
+                    onNavigate={() => handleHomeNavigation(item.sectionId)}
                     transparent={transparentDesktop}
                   />
                 ))}
@@ -262,11 +292,10 @@ export function Header() {
               <div className="grid gap-2">
                 {navItems.map((item) => (
                   <HeaderLink
-                    key={item.href}
+                    key={item.sectionId}
                     label={item.label}
-                    href={item.href}
+                    onNavigate={() => handleHomeNavigation(item.sectionId)}
                     mobile
-                    onNavigate={() => setMenuOpen(false)}
                   />
                 ))}
               </div>

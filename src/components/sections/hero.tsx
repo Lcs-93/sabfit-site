@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ArrowRight, Layers3 } from "lucide-react";
 import { Container } from "@/components/layout/container";
-import { ButtonLink } from "@/components/ui/button";
+import { Button, ButtonLink } from "@/components/ui/button";
+import { consumePendingHomeSection, scrollToHomeSection } from "@/lib/home-scroll";
 import {
   buildWhatsAppLink,
   heroHighlights,
@@ -63,6 +64,28 @@ export function HeroSection() {
     return () => window.cancelAnimationFrame(frame);
   }, []);
 
+  useEffect(() => {
+    const pendingSection = consumePendingHomeSection();
+
+    if (!pendingSection) {
+      return;
+    }
+
+    let secondFrame = 0;
+    const firstFrame = window.requestAnimationFrame(() => {
+      secondFrame = window.requestAnimationFrame(() => {
+        scrollToHomeSection(pendingSection);
+      });
+    });
+
+    return () => {
+      window.cancelAnimationFrame(firstFrame);
+      if (secondFrame) {
+        window.cancelAnimationFrame(secondFrame);
+      }
+    };
+  }, []);
+
   return (
     <section id="top" className="overflow-hidden pb-12 sm:pb-14">
       <div className="hero-cover relative isolate min-h-[72svh] overflow-hidden sm:min-h-[78svh] lg:min-h-[82svh]">
@@ -105,8 +128,9 @@ export function HeroSection() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-stretch">
-              <ButtonLink
-                href="/#offres"
+              <Button
+                type="button"
+                onClick={() => scrollToHomeSection("offres")}
                 className="hero-cta hero-cta-light-primary w-full sm:min-w-[18.5rem]"
               >
                 <span className="hero-cta-visual hero-cta-visual-light" aria-hidden="true">
@@ -121,7 +145,7 @@ export function HeroSection() {
                 <span className="hero-cta-badge hero-cta-badge-dark" aria-hidden="true">
                   <ArrowRight className="h-[1rem] w-[1rem]" />
                 </span>
-              </ButtonLink>
+              </Button>
 
               <ButtonLink
                 href={buildWhatsAppLink(whatsappBaseMessage)}
