@@ -61,7 +61,7 @@ function HeaderLink({
       type="button"
       onClick={onNavigate}
       className={cn(
-        "group relative transition-all duration-250",
+        "group relative cursor-pointer transition-all duration-250",
         mobile
           ? "flex items-center justify-between rounded-[1.2rem] border border-[rgba(22,56,43,0.08)] bg-white/78 px-4 py-3"
           : transparent
@@ -200,7 +200,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => handleHomeNavigation("top")}
-              className="group flex min-w-0 items-center py-1.5 xl:justify-self-start"
+              className="group flex min-w-0 cursor-pointer items-center py-1.5 xl:justify-self-start"
             >
               <p
                 className={cn(
@@ -268,7 +268,7 @@ export function Header() {
               type="button"
               onClick={() => setMenuOpen((open) => !open)}
               className={cn(
-                "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors xl:hidden",
+                "inline-flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors xl:hidden",
                 transparentDesktop
                   ? "border border-white/16 bg-[rgba(255,255,255,0.14)] text-white shadow-[0_12px_28px_rgba(0,0,0,0.18)] backdrop-blur-md hover:bg-[rgba(255,255,255,0.22)]"
                   : "border border-[rgba(22,56,43,0.08)] bg-[rgba(255,255,255,0.62)] text-[var(--color-deep-green)] shadow-[0_10px_24px_rgba(16,40,31,0.08)] backdrop-blur-xl hover:bg-[rgba(255,255,255,0.78)]",

@@ -56,7 +56,7 @@ export function OffersSection() {
               type="button"
               onClick={() => setActiveTab(tab.key)}
               className={cn(
-                "rounded-full px-5 py-3 text-sm font-semibold transition-colors",
+                "cursor-pointer rounded-full px-5 py-3 text-sm font-semibold transition-colors",
                 activeTab === tab.key
                   ? "bg-[var(--color-deep-green)] text-white"
                   : "text-[var(--color-deep-green)]",

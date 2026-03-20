@@ -27,7 +27,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 function getButtonClasses(variant: Variant, className?: string) {
   return cn(
-    "inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-[color,background-color,transform,box-shadow,border-color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(22,56,43,0.2)] active:scale-[0.985]",
+    "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-[color,background-color,transform,box-shadow,border-color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(22,56,43,0.2)] active:scale-[0.985] disabled:cursor-not-allowed disabled:opacity-60",
     variantClasses[variant],
     className,
   );
