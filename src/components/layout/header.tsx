@@ -20,6 +20,7 @@ import {
   buildWhatsAppLink,
   navItems,
   siteConfig,
+  socialLinks,
   type HomeSectionId,
   whatsappBaseMessage,
 } from "@/lib/constants";
@@ -29,6 +30,24 @@ function WhatsAppIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7">
       <path d="M20.52 3.449A11.42 11.42 0 0 0 12.35 0C6.1 0 1.02 5.08 1.02 11.33c0 1.99.52 3.93 1.5 5.64L0 24l7.25-2.38a11.35 11.35 0 0 0 5.09 1.21h.01c6.25 0 11.33-5.08 11.33-11.33a11.3 11.3 0 0 0-3.16-8.05zM12.36 20.9h-.01a9.44 9.44 0 0 1-4.81-1.32l-.35-.21-4.3 1.41 1.41-4.2-.23-.36a9.39 9.39 0 0 1-1.44-5.03c0-5.18 4.22-9.4 9.4-9.4 2.51 0 4.87.98 6.65 2.76a9.34 9.34 0 0 1 2.75 6.66c0 5.18-4.22 9.41-9.41 9.41zm5.16-7.04c-.28-.14-1.65-.81-1.91-.9-.26-.1-.45-.14-.64.14-.19.28-.74.9-.91 1.08-.17.19-.33.21-.61.07-.28-.14-1.18-.43-2.25-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.17.19-.29.28-.48.09-.19.05-.36-.02-.5-.07-.14-.64-1.54-.88-2.12-.23-.55-.46-.48-.64-.49h-.54c-.19 0-.5.07-.76.36-.26.29-1 1-1 2.44 0 1.43 1.03 2.81 1.17 3 .14.19 2.02 3.09 4.89 4.33.68.29 1.21.46 1.63.59.68.22 1.3.19 1.8.12.55-.08 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.26-.19-.54-.33z" />
+    </svg>
+  );
+}
+
+function InstagramIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5.5 w-5.5">
+      <rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5.25" stroke="currentColor" strokeWidth="1.9" />
+      <circle cx="12" cy="12" r="4.05" stroke="currentColor" strokeWidth="1.9" />
+      <circle cx="17.35" cy="6.75" r="1.15" fill="currentColor" />
+    </svg>
+  );
+}
+
+function TikTokIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="h-5.5 w-5.5">
+      <path d="M14.83 3.1c.47 1.74 1.45 2.86 3.08 3.49.52.21 1.1.33 1.72.36v2.86a7.12 7.12 0 0 1-3.27-.83v5.72c0 3.53-2.68 6.13-6.29 6.13-3.08 0-5.69-2.22-6.18-5.22-.61-3.7 2.24-7.05 6.09-7.05.35 0 .65.02.93.08v2.95a3.82 3.82 0 0 0-.9-.11c-1.96 0-3.37 1.72-2.95 3.68.26 1.26 1.4 2.13 2.71 2.13 1.55 0 2.88-1.12 2.88-2.84V3.1h2.18z" />
     </svg>
   );
 }
@@ -125,6 +144,48 @@ function HeaderLink({
         />
       )}
     </button>
+  );
+}
+
+interface SocialLinkButtonProps {
+  label: string;
+  href: string;
+  transparent?: boolean;
+  mobile?: boolean;
+}
+
+function SocialLinkButton({
+  label,
+  href,
+  transparent = false,
+  mobile = false,
+}: SocialLinkButtonProps) {
+  const Icon = label === "Instagram" ? InstagramIcon : TikTokIcon;
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={`Ouvrir ${label}`}
+      className={cn(
+        "group inline-flex cursor-pointer items-center justify-center rounded-full transition-all duration-250",
+        mobile
+          ? "h-11 w-11 border border-[rgba(22,56,43,0.08)] bg-white text-[var(--color-deep-green)] shadow-[0_10px_24px_rgba(16,40,31,0.08)] hover:-translate-y-0.5 hover:border-[rgba(22,56,43,0.14)]"
+          : transparent
+            ? "h-11 w-11 border border-white/16 bg-[rgba(255,255,255,0.14)] text-white shadow-[0_14px_32px_rgba(0,0,0,0.2)] backdrop-blur-md hover:-translate-y-0.5 hover:bg-[rgba(255,255,255,0.22)]"
+            : "h-11 w-11 border border-[rgba(22,56,43,0.12)] bg-[rgba(22,56,43,0.74)] text-white shadow-[0_12px_28px_rgba(16,40,31,0.14)] backdrop-blur-xl hover:-translate-y-0.5 hover:bg-[rgba(22,56,43,0.88)]",
+      )}
+    >
+      <span
+        className={cn(
+          "transition-transform duration-250 group-hover:scale-105",
+          mobile ? "text-[var(--color-deep-green)]" : "text-white",
+        )}
+      >
+        <Icon />
+      </span>
+    </a>
   );
 }
 
@@ -234,7 +295,18 @@ export function Header() {
               </nav>
             </div>
 
-            <div className="hidden xl:flex items-center justify-end xl:justify-self-end">
+            <div className="hidden xl:flex items-center justify-end gap-2.5 xl:justify-self-end">
+              <div className="flex items-center gap-2">
+                {socialLinks.map((item) => (
+                  <SocialLinkButton
+                    key={item.label}
+                    label={item.label}
+                    href={item.href}
+                    transparent={transparentDesktop}
+                  />
+                ))}
+              </div>
+
               <ButtonLink
                 href={buildWhatsAppLink(whatsappBaseMessage)}
                 className={cn(
@@ -280,14 +352,14 @@ export function Header() {
             </button>
           </div>
 
-          <div
-            className={cn(
-              "transition-all duration-300 xl:hidden",
+            <div
+              className={cn(
+                "transition-all duration-300 xl:hidden",
               menuOpen
                 ? "mt-3 max-h-[calc(100vh-6.5rem)] overflow-y-auto overscroll-contain opacity-100"
                 : "max-h-0 overflow-hidden opacity-0",
             )}
-          >
+            >
             <div className="surface-card rounded-[1.9rem] p-3">
               <div className="grid gap-2">
                 {navItems.map((item) => (
@@ -297,6 +369,12 @@ export function Header() {
                     onNavigate={() => handleHomeNavigation(item.sectionId)}
                     mobile
                   />
+                ))}
+              </div>
+
+              <div className="mt-3 flex items-center gap-2">
+                {socialLinks.map((item) => (
+                  <SocialLinkButton key={item.label} label={item.label} href={item.href} mobile />
                 ))}
               </div>
 

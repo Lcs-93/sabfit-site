@@ -23,6 +23,17 @@ export const navItems: Array<{ label: string; sectionId: HomeSectionId }> = [
   { label: "Contact", sectionId: "contact" },
 ];
 
+export const socialLinks = [
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/sabfit_coaching/",
+  },
+  {
+    label: "TikTok",
+    href: "https://www.tiktok.com/@sabfit_coachingg",
+  },
+] as const;
+
 function createHeroImagePool(category: string, count: number) {
   return Array.from(
     { length: count },

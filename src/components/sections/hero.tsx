@@ -101,74 +101,115 @@ export function HeroSection() {
         <div className="hero-cover-overlay absolute inset-0" />
 
         <Container className="relative z-10 flex min-h-[72svh] items-end py-12 sm:min-h-[78svh] sm:py-16 lg:min-h-[82svh] lg:py-20">
-          <div className="hero-cover-panel max-w-[43rem]">
-            <div className="hero-eyebrow" aria-label="Sabfit coaching en ligne">
-              <span className="hero-eyebrow-line" aria-hidden="true" />
-              <span className="hero-eyebrow-text">Sabfit coaching en ligne</span>
-            </div>
+          <div className="hero-cover-shell w-full">
+            <div className="hero-cover-panel max-w-[43rem]">
+              <div className="hero-eyebrow" aria-label="Sabfit coaching en ligne">
+                <span className="hero-eyebrow-line" aria-hidden="true" />
+                <span className="hero-eyebrow-text">Sabfit coaching en ligne</span>
+              </div>
 
-            <h1 className="hero-cover-title mt-6 max-w-[12ch] font-display text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-[5.2rem]">
-              <span className="hero-title-line hero-title-line-1">Musculation,</span>
-              <span className="hero-title-line hero-title-line-2">nutrition et suivi</span>
-              <span className="hero-title-line hero-title-line-3">personnalise</span>
-            </h1>
+              <h1 className="hero-cover-title mt-6 max-w-[12ch] font-display text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-[5.2rem]">
+                <span className="hero-title-line hero-title-line-1">Musculation,</span>
+                <span className="hero-title-line hero-title-line-2">nutrition et suivi</span>
+                <span className="hero-title-line hero-title-line-3">personnalise</span>
+              </h1>
 
-            <div className="mt-4 min-h-[4.4rem] max-w-[24rem] sm:min-h-[3.3rem] sm:max-w-[31rem]">
-              <p
-                key={heroRotatingPhrases[activePhrase]}
-                className="hero-inline-rotator hero-inline-rotator-light text-balance text-lg font-medium sm:text-[1.45rem]"
-              >
-                {heroRotatingPhrases[activePhrase]}
+              <div className="mt-4 min-h-[4.4rem] max-w-[24rem] sm:min-h-[3.3rem] sm:max-w-[31rem]">
+                <p
+                  key={heroRotatingPhrases[activePhrase]}
+                  className="hero-inline-rotator hero-inline-rotator-light text-balance text-lg font-medium sm:text-[1.45rem]"
+                >
+                  {heroRotatingPhrases[activePhrase]}
+                </p>
+              </div>
+
+              <p className="mt-6 max-w-[39rem] text-lg leading-8 text-white/82 sm:text-[1.16rem]">
+                Sabfit vous aide a prendre de la masse, perdre du gras et mieux structurer
+                votre alimentation avec une methode claire, serieuse et durable.
               </p>
+
+              <div className="hero-credential mt-5">
+                <span className="hero-credential-kicker">Qualification</span>
+                <span className="hero-credential-text">
+                  Titulaire du CQP Instructeur Fitness
+                </span>
+              </div>
+
+              <div className="mt-8">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
+                  <Button
+                    type="button"
+                    onClick={() => scrollToHomeSection("offres")}
+                    className="hero-cta hero-cta-light-primary w-full sm:min-w-[18.5rem]"
+                  >
+                    <span className="hero-cta-visual hero-cta-visual-light" aria-hidden="true">
+                      <span className="hero-cta-visual-main">
+                        <Layers3 className="h-[1.2rem] w-[1.2rem]" />
+                      </span>
+                    </span>
+
+                    <span className="hero-cta-content">
+                      <span className="hero-cta-label hero-cta-label-dark">Voir les formules</span>
+                    </span>
+                    <span className="hero-cta-badge hero-cta-badge-dark" aria-hidden="true">
+                      <ArrowRight className="h-[1rem] w-[1rem]" />
+                    </span>
+                  </Button>
+
+                  <ButtonLink
+                    href={buildWhatsAppLink(whatsappBaseMessage)}
+                    variant="secondary"
+                    className="hero-cta hero-cta-glass w-full sm:min-w-[18.5rem]"
+                  >
+                    <span className="hero-cta-visual hero-cta-visual-glass" aria-hidden="true">
+                      <span className="hero-cta-visual-main">
+                        <WhatsAppGlyph />
+                      </span>
+                    </span>
+                    <span className="hero-cta-content">
+                      <span className="hero-cta-label">Parler sur WhatsApp</span>
+                    </span>
+                    <span className="hero-cta-arrow-soft hero-cta-arrow-soft-light" aria-hidden="true">
+                      <ArrowRight className="h-[1rem] w-[1rem]" />
+                    </span>
+                  </ButtonLink>
+                </div>
+
+                <div className="hero-proof-row mt-6 text-sm text-white/82">
+                  <div className="hero-proof-stack">
+                    <span className="hero-proof-chip">{siteConfig.responseTime}</span>
+                    <span className="hero-proof-chip">Approche humaine et durable</span>
+                  </div>
+
+                  <div className="hero-partner-mobile">
+                    <div className="hero-partner-badge hero-partner-badge-mobile">
+                      <span className="hero-partner-label hero-partner-label-mobile">
+                        Experience acquise chez
+                      </span>
+                      <Image
+                        src="/images/Partenaire/Workout-Challenge.avif"
+                        alt="Logo Workout Challenge"
+                        width={220}
+                        height={88}
+                        className="hero-partner-logo hero-partner-logo-mobile"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <p className="mt-6 max-w-[39rem] text-lg leading-8 text-white/82 sm:text-[1.16rem]">
-              Sabfit vous aide a prendre de la masse, perdre du gras et mieux structurer
-              votre alimentation avec une methode claire, serieuse et durable.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-stretch">
-              <Button
-                type="button"
-                onClick={() => scrollToHomeSection("offres")}
-                className="hero-cta hero-cta-light-primary w-full sm:min-w-[18.5rem]"
-              >
-                <span className="hero-cta-visual hero-cta-visual-light" aria-hidden="true">
-                  <span className="hero-cta-visual-main">
-                    <Layers3 className="h-[1.2rem] w-[1.2rem]" />
-                  </span>
-                </span>
-
-                <span className="hero-cta-content">
-                  <span className="hero-cta-label hero-cta-label-dark">Voir les formules</span>
-                </span>
-                <span className="hero-cta-badge hero-cta-badge-dark" aria-hidden="true">
-                  <ArrowRight className="h-[1rem] w-[1rem]" />
-                </span>
-              </Button>
-
-              <ButtonLink
-                href={buildWhatsAppLink(whatsappBaseMessage)}
-                variant="secondary"
-                className="hero-cta hero-cta-glass w-full sm:min-w-[18.5rem]"
-              >
-                <span className="hero-cta-visual hero-cta-visual-glass" aria-hidden="true">
-                  <span className="hero-cta-visual-main">
-                    <WhatsAppGlyph />
-                  </span>
-                </span>
-                <span className="hero-cta-content">
-                  <span className="hero-cta-label">Parler sur WhatsApp</span>
-                </span>
-                <span className="hero-cta-arrow-soft hero-cta-arrow-soft-light" aria-hidden="true">
-                  <ArrowRight className="h-[1rem] w-[1rem]" />
-                </span>
-              </ButtonLink>
-            </div>
-
-            <div className="mt-6 flex flex-wrap gap-3 text-sm text-white/82">
-              <span className="hero-proof-chip">{siteConfig.responseTime}</span>
-              <span className="hero-proof-chip">Approche humaine et durable</span>
+            <div className="hero-partner-anchor hidden xl:flex">
+              <div className="hero-partner-badge">
+                <span className="hero-partner-label">Experience acquise chez</span>
+                <Image
+                  src="/images/Partenaire/Workout-Challenge.avif"
+                  alt="Logo Workout Challenge"
+                  width={220}
+                  height={88}
+                  className="hero-partner-logo"
+                />
+              </div>
             </div>
           </div>
         </Container>
