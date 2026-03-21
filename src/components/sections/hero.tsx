@@ -102,7 +102,7 @@ export function HeroSection() {
 
         <Container className="relative z-10 flex min-h-[72svh] items-end py-12 sm:min-h-[78svh] sm:py-16 lg:min-h-[82svh] lg:py-20">
           <div className="hero-cover-shell w-full">
-            <div className="hero-cover-panel max-w-[43rem]">
+            <div className="hero-cover-panel max-w-[43rem] xl:translate-y-5">
               <div className="hero-eyebrow" aria-label="Sabfit coaching en ligne">
                 <span className="hero-eyebrow-line" aria-hidden="true" />
                 <span className="hero-eyebrow-text">Sabfit coaching en ligne</span>

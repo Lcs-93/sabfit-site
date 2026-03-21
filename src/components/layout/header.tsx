@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
@@ -49,6 +50,31 @@ function TikTokIcon() {
     <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="h-5.5 w-5.5">
       <path d="M14.83 3.1c.47 1.74 1.45 2.86 3.08 3.49.52.21 1.1.33 1.72.36v2.86a7.12 7.12 0 0 1-3.27-.83v5.72c0 3.53-2.68 6.13-6.29 6.13-3.08 0-5.69-2.22-6.18-5.22-.61-3.7 2.24-7.05 6.09-7.05.35 0 .65.02.93.08v2.95a3.82 3.82 0 0 0-.9-.11c-1.96 0-3.37 1.72-2.95 3.68.26 1.26 1.4 2.13 2.71 2.13 1.55 0 2.88-1.12 2.88-2.84V3.1h2.18z" />
     </svg>
+  );
+}
+
+function SiteLogo({ transparent = false }: { transparent?: boolean }) {
+  return (
+    <span
+      className={cn(
+        "relative block shrink-0 overflow-hidden transition-all duration-300",
+        "h-8 aspect-[1.16/1] sm:h-11 xl:h-12",
+      )}
+    >
+      <Image
+        src="/images/hero/logo/sabrish-logo.png"
+        alt=""
+        fill
+        priority
+        sizes="(max-width: 639px) 46px, (max-width: 1279px) 51px, 56px"
+        className={cn(
+          "object-cover object-center",
+          transparent
+            ? "brightness-0 invert drop-shadow-[0_10px_24px_rgba(0,0,0,0.2)]"
+            : undefined,
+        )}
+      />
+    </span>
   );
 }
 
@@ -246,8 +272,9 @@ export function Header() {
   return (
     <header
       className={cn(
-        "top-0 z-50 transition-all duration-300",
-        overlayOnHero ? "fixed inset-x-0" : "sticky",
+        "z-50 transition-all duration-300",
+        overlayOnHero ? "fixed inset-x-0 top-0" : "sticky top-0",
+        transparentDesktop ? "xl:top-5" : undefined,
         transparentDesktop
           ? "border-b border-transparent bg-transparent backdrop-blur-0"
           : "border-b border-[rgba(22,56,43,0.08)] bg-[rgba(246,244,238,0.46)] shadow-[0_10px_30px_rgba(16,40,31,0.06)] backdrop-blur-2xl",
@@ -261,18 +288,10 @@ export function Header() {
             <button
               type="button"
               onClick={() => handleHomeNavigation("top")}
-              className="group flex min-w-0 cursor-pointer items-center py-1.5 xl:justify-self-start"
+              aria-label={`Retour a l'accueil ${siteConfig.name}`}
+              className="group flex min-w-0 shrink-0 cursor-pointer items-center py-1.5 xl:justify-self-start"
             >
-              <p
-                className={cn(
-                  "font-display text-[1.3rem] font-semibold tracking-tight sm:text-[1.5rem]",
-                  transparentDesktop
-                    ? "text-white [text-shadow:0_1px_14px_rgba(0,0,0,0.4)]"
-                    : "text-[var(--color-deep-green)]",
-                )}
-              >
-                {siteConfig.name}
-              </p>
+              <SiteLogo transparent={transparentDesktop} />
             </button>
 
             <div className="hidden xl:flex items-center justify-center xl:min-w-0">

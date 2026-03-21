@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { ButtonLink } from "@/components/ui/button";
 import { buildWhatsAppLink, siteConfig, whatsappBaseMessage } from "@/lib/constants";
@@ -15,9 +16,15 @@ export function Footer() {
       <Container className="py-10">
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
           <div className="space-y-4">
-            <p className="font-display text-2xl font-semibold text-[var(--color-deep-green)]">
-              {siteConfig.name}
-            </p>
+            <div className="relative h-16 w-[4.6rem] overflow-hidden sm:h-18 sm:w-[5.2rem]">
+              <Image
+                src="/images/hero/logo/sabrish-logo.png"
+                alt={`Logo ${siteConfig.name}`}
+                fill
+                sizes="(max-width: 639px) 74px, 84px"
+                className="object-cover object-center"
+              />
+            </div>
             <p className="max-w-md text-sm leading-7 text-[var(--color-muted)]">
               Musculation, nutrition et accompagnement personnalise dans une approche
               humaine, structuree et durable.
