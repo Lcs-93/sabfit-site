@@ -206,6 +206,8 @@ a {
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
+  transform-origin: center 24%;
+  animation: hero-credential-medal-float 5.2s ease-in-out infinite;
 }
 
 .hero-credential-copy {
@@ -213,6 +215,7 @@ a {
   min-width: 0;
   flex-direction: column;
   gap: 0.24rem;
+  animation: hero-credential-copy-breathe 5.2s ease-in-out infinite;
 }
 
 .hero-credential-kicker {
@@ -224,11 +227,24 @@ a {
 }
 
 .hero-credential-text {
+  position: relative;
   font-size: 0.9rem;
   font-weight: 600;
   line-height: 1.3;
   color: rgba(255, 255, 255, 0.96);
   text-wrap: balance;
+}
+
+.hero-credential-text::after {
+  content: "";
+  position: absolute;
+  inset: -18% auto -18% -22%;
+  width: 18%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+  transform: skewX(-18deg);
+  opacity: 0;
+  animation: hero-credential-text-sheen 5.2s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .hero-eyebrow {
@@ -860,6 +876,62 @@ a {
   }
 }
 
+@keyframes hero-credential-medal-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  24% {
+    transform: translateY(-1px) rotate(-2deg);
+  }
+
+  52% {
+    transform: translateY(-2px) rotate(1.4deg);
+  }
+
+  76% {
+    transform: translateY(-0.5px) rotate(-1deg);
+  }
+}
+
+@keyframes hero-credential-copy-breathe {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.96;
+  }
+
+  38%,
+  62% {
+    transform: translateX(1px);
+    opacity: 1;
+  }
+}
+
+@keyframes hero-credential-text-sheen {
+  0%,
+  66%,
+  100% {
+    opacity: 0;
+    transform: translateX(0) skewX(-18deg);
+  }
+
+  72% {
+    opacity: 0.18;
+  }
+
+  86% {
+    opacity: 0.34;
+    transform: translateX(620%) skewX(-18deg);
+  }
+
+  92% {
+    opacity: 0;
+    transform: translateX(700%) skewX(-18deg);
+  }
+}
+
 @media (width >= 40rem) {
   .hero-cover-overlay {
     background:
@@ -943,6 +1015,9 @@ a {
   .hero-title-line,
   .hero-inline-rotator,
   .hero-inline-rotator::after,
+  .hero-credential-medal,
+  .hero-credential-copy,
+  .hero-credential-text::after,
   .marquee-track {
     animation: none;
   }
