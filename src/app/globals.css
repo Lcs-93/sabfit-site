@@ -195,31 +195,39 @@ a {
 .hero-credential {
   display: inline-flex;
   max-width: min(100%, 24rem);
+  align-items: center;
+  gap: 0.78rem;
+}
+
+.hero-credential-medal {
+  display: inline-flex;
+  height: 3.95rem;
+  width: 3.45rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-credential-copy {
+  display: flex;
+  min-width: 0;
   flex-direction: column;
-  gap: 0.35rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 0.8rem 1rem;
-  backdrop-filter: blur(12px);
-  box-shadow:
-    0 16px 32px rgba(0, 0, 0, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  gap: 0.24rem;
 }
 
 .hero-credential-kicker {
-  font-size: 0.67rem;
+  font-size: 0.62rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.62);
+  color: rgba(255, 255, 255, 0.66);
 }
 
 .hero-credential-text {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  line-height: 1.35;
-  color: rgba(255, 255, 255, 0.94);
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.96);
   text-wrap: balance;
 }
 
@@ -918,8 +926,13 @@ a {
   }
 
   .hero-credential {
-    max-width: 26rem;
-    padding-inline: 1.05rem;
+    max-width: 25rem;
+    gap: 0.88rem;
+  }
+
+  .hero-credential-medal {
+    height: 4.35rem;
+    width: 3.8rem;
   }
 }
 

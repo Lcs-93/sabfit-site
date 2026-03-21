@@ -22,6 +22,101 @@ function WhatsAppGlyph() {
   );
 }
 
+function QualificationMedal() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 92 104" className="h-full w-full">
+      <defs>
+        <linearGradient id="medal-ribbon-left" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#0d2238" />
+          <stop offset="52%" stopColor="#23496e" />
+          <stop offset="100%" stopColor="#091728" />
+        </linearGradient>
+        <linearGradient id="medal-ribbon-right" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#132a43" />
+          <stop offset="52%" stopColor="#2c5c88" />
+          <stop offset="100%" stopColor="#0a192b" />
+        </linearGradient>
+        <radialGradient id="medal-gold-core" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stopColor="#f7efc3" />
+          <stop offset="28%" stopColor="#e8d089" />
+          <stop offset="62%" stopColor="#c79a43" />
+          <stop offset="100%" stopColor="#7a5419" />
+        </radialGradient>
+        <linearGradient id="medal-gold-ring" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#f5e7af" />
+          <stop offset="24%" stopColor="#e5c56f" />
+          <stop offset="58%" stopColor="#b78331" />
+          <stop offset="100%" stopColor="#684317" />
+        </linearGradient>
+        <linearGradient id="medal-inner" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#f4e8bc" />
+          <stop offset="100%" stopColor="#d3ab5a" />
+        </linearGradient>
+        <filter id="medal-shadow" x="-25%" y="-25%" width="150%" height="150%">
+          <feDropShadow dx="0" dy="6" stdDeviation="4.5" floodColor="rgba(0,0,0,0.24)" />
+        </filter>
+      </defs>
+
+      <g filter="url(#medal-shadow)">
+        <path d="M26 10h14l-5.2 28H21.2L26 10Z" fill="url(#medal-ribbon-left)" />
+        <path d="M52 10h14l5.2 28H57.2L52 10Z" fill="url(#medal-ribbon-right)" />
+        <path d="M30.5 10h4.6l-2.2 20h-4.6l2.2-20Z" fill="rgba(255,255,255,0.12)" />
+        <path d="M56.8 10h4.6l2.2 20H59l-2.2-20Z" fill="rgba(255,255,255,0.12)" />
+
+        <circle cx="46" cy="56" r="28" fill="url(#medal-gold-ring)" />
+        <circle cx="46" cy="56" r="21.5" fill="url(#medal-gold-core)" />
+        <circle cx="46" cy="56" r="25.2" fill="none" stroke="rgba(103,69,18,0.34)" strokeWidth="1.1" />
+        <circle cx="46" cy="56" r="18" fill="url(#medal-inner)" stroke="rgba(117,77,20,0.28)" strokeWidth="1" />
+
+        <path
+          d="M38.6 64.2c-3.8-2.2-6.2-5.7-7.2-10.4"
+          fill="none"
+          stroke="rgba(112,74,18,0.5)"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
+        <path
+          d="M53.4 64.2c3.8-2.2 6.2-5.7 7.2-10.4"
+          fill="none"
+          stroke="rgba(112,74,18,0.5)"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
+        <path
+          d="M36.4 61.3c-2.1-1.7-3.5-4-4.2-6.7"
+          fill="none"
+          stroke="rgba(248,235,188,0.55)"
+          strokeWidth="0.9"
+          strokeLinecap="round"
+        />
+        <path
+          d="M55.6 61.3c2.1-1.7 3.5-4 4.2-6.7"
+          fill="none"
+          stroke="rgba(248,235,188,0.55)"
+          strokeWidth="0.9"
+          strokeLinecap="round"
+        />
+
+        <path
+          d="M46 43.5l7 2.4v8.1c0 4.7-2.6 9-7 11.3-4.4-2.3-7-6.6-7-11.3v-8.1l7-2.4Z"
+          fill="rgba(255,248,220,0.94)"
+          stroke="rgba(113,75,18,0.48)"
+          strokeWidth="1.1"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M42.8 54.3l2.1 2.2 4.7-5.1"
+          fill="none"
+          stroke="#9c7425"
+          strokeWidth="1.9"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+    </svg>
+  );
+}
+
 export function HeroSection() {
   const [activePhrase, setActivePhrase] = useState(0);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -129,10 +224,15 @@ export function HeroSection() {
               </p>
 
               <div className="hero-credential mt-5">
-                <span className="hero-credential-kicker">Qualification</span>
-                <span className="hero-credential-text">
-                  Titulaire du CQP Instructeur Fitness
+                <span className="hero-credential-medal">
+                  <QualificationMedal />
                 </span>
+                <div className="hero-credential-copy">
+                  <span className="hero-credential-kicker">Qualification</span>
+                  <span className="hero-credential-text">
+                    Titulaire du CQP Instructeur Fitness
+                  </span>
+                </div>
               </div>
 
               <div className="mt-8">
